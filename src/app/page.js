@@ -6,6 +6,7 @@ import Tracks from '../components/Tracks';
 import Prizes from '../components/Prizes';
 // import Prizes2 from '@/components/Prizes2';
 import Sponsors from '@/components/Sponsors';
+import Faqs from '@/components/Faqs';
 
 const Home = () => {
   return (
@@ -29,6 +30,7 @@ const Home = () => {
         spotlightRadius={300}
         particleCount={12}
       />
+      <Faqs />
     </main> 
   )
 }
