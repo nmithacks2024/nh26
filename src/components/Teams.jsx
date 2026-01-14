@@ -36,6 +36,7 @@ const TeamMemberCard = ({ isActive, onClick, setPaused, isTouchRef }) => {
   return (
     <div 
       className={`relative flex items-center justify-center w-[300px] max-w-full isolate z-10 shrink transition-[height] duration-400 ease-in-out ${isExpanded ? 'h-[400px]' : 'h-[250px] md:h-[400px]'}`}
+      onMouseLeave={handleMouseLeave}
       // REMOVED onClick from here to prevent generic clicks
     >
       {/* FRONT CARD (The Trigger) 
@@ -44,7 +45,6 @@ const TeamMemberCard = ({ isActive, onClick, setPaused, isTouchRef }) => {
       */}
       <div 
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         onClick={(e) => {
           e.stopPropagation();
           onClick(); // Trigger Elongation

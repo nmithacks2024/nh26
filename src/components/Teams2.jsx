@@ -14,14 +14,14 @@ const TEAMS_DATA = [
   { name: 'Tech Team', count: 4 },
 ];
 
-const FlipMemberCard = () => {
+const FlipMemberCard = ({ onHoverStart, onHoverEnd }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <div 
-      className="relative w-[300px] h-[400px] perspective-1000 shrink-0"
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
+      className="relative w-[260px] h-[260px] md:w-[300px] md:h-[320px] perspective-1000 shrink-0"
+      onMouseEnter={() => { setIsFlipped(true); onHoverStart?.(); }}
+      onMouseLeave={() => { setIsFlipped(false); onHoverEnd?.(); }}
     >
       <motion.div
         className="relative w-full h-full preserve-3d"
@@ -39,9 +39,9 @@ const FlipMemberCard = () => {
             alt="Team Member" 
             width={150} 
             height={150} 
-            className="rounded-full object-cover w-[150px] h-[150px] mb-6 border-4 border-white shadow-sm"
+            className="rounded-full object-cover w-[120px] h-[120px] md:w-[150px] md:h-[150px] mb-6 border-4 border-white shadow-sm"
           />
-          <div className="font-bold text-xl text-black text-center px-4">Gurucharan Maripala</div>
+          <div className="font-bold text-lg md:text-xl text-black text-center px-4">Gurucharan Maripala</div>
         </div>
 
         {/* BACK SIDE */}
@@ -49,7 +49,7 @@ const FlipMemberCard = () => {
           className="absolute inset-0 w-full h-full rounded-[35px] bg-white border border-gray-100 flex flex-col items-center justify-center backface-hidden"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <div className="text-xl text-black font-bold flex flex-col items-center mb-8">
+          <div className="text-lg md:text-xl text-black font-bold flex flex-col items-center mb-8">
             Tech Team Co-Lead
             <div className="h-[2px] w-[50px] bg-black mt-2"></div>
           </div>
@@ -74,7 +74,9 @@ const FlipMemberCard = () => {
 const Teams2 = () => {
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [containerHeight, setContainerHeight] = useState('auto');
   const isTouch = useRef(false);
+  const teamRefs = useRef([]);
 
   useEffect(() => {
     let interval;
@@ -85,6 +87,12 @@ const Teams2 = () => {
     }
     return () => clearInterval(interval);
   }, [isPaused]);
+
+  useEffect(() => {
+    if (teamRefs.current[currentTeamIndex]) {
+      setContainerHeight(`${teamRefs.current[currentTeamIndex].offsetHeight}px`);
+    }
+  }, [currentTeamIndex]);
 
   const handleNext = () => {
     setCurrentTeamIndex((prevIndex) => (prevIndex + 1) % TEAMS_DATA.length);
@@ -97,27 +105,52 @@ const Teams2 = () => {
   return (
     <section className="w-full relative z-10 flex flex-col items-center justify-center bg-black py-20 min-h-screen">
       <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-8 z-30 relative font-['PPMori'] tracking-tight pt-4 w-full">
-        Teams (Flip)
+        Teams
       </h2>
+
+      {/* Navigation & Header */}
+      <div className="flex items-center justify-center gap-4 md:gap-8 mb-8 z-30 relative w-full px-4">
+        <button 
+          onClick={handlePrev}
+          className="p-2 md:p-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+
+        <div className="text-xl md:text-3xl text-neutral-400 font-['PPMori'] text-center min-w-[200px]">
+          {TEAMS_DATA[currentTeamIndex].name}
+        </div>
+
+        <button 
+          onClick={handleNext}
+          className="p-2 md:p-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
       
       <div 
-        className="w-full max-w-[95vw] overflow-hidden"
+        className="w-full max-w-[95vw] overflow-hidden transition-all duration-500 ease-in-out"
+        style={{ height: containerHeight }}
         onTouchStart={() => { isTouch.current = true; }}
-        onMouseEnter={() => { if (!isTouch.current) setIsPaused(true); }}
-        onMouseLeave={() => { setIsPaused(false); isTouch.current = false; }}
       >
         <div 
-          className="flex transition-transform duration-700 ease-in-out"
+          className="flex items-start transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${currentTeamIndex * 100}%)` }}
         >
           {TEAMS_DATA.map((team, index) => (
-            <div key={index} className="w-full shrink-0 flex flex-col items-center">
-              <div className="text-2xl text-neutral-400 mb-10 font-['PPMori'] text-center">
-                {team.name}
-              </div>
+            <div 
+              key={index} 
+              ref={el => teamRefs.current[index] = el}
+              className="w-full shrink-0 flex flex-col items-center"
+            >
               <div className="flex flex-wrap justify-center gap-6 w-full px-4 items-start">
                 {Array.from({ length: team.count }).map((_, i) => (
-                  <FlipMemberCard key={i} />
+                  <FlipMemberCard 
+                    key={i} 
+                    onHoverStart={() => setIsPaused(true)}
+                    onHoverEnd={() => setIsPaused(false)}
+                  />
                 ))}
               </div>
             </div>
@@ -125,21 +158,6 @@ const Teams2 = () => {
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="flex gap-8 mt-6 md:mt-12 z-20">
-        <button 
-          onClick={handlePrev}
-          className="p-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-        </button>
-        <button 
-          onClick={handleNext}
-          className="p-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-        </button>
-      </div>
     </section>
   );
 };

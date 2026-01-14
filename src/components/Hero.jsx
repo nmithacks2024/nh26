@@ -42,7 +42,7 @@ const Hero = () => {
 
           {/* CTA Button */}
           <div className="pt-8 md:pt-14 xl:pt-10 animate-fade-in-up delay-300">
-            <button className="px-10 md:px-16 xl:px-12 py-3 md:py-5 xl:py-3 rounded-full border border-white text-white hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-xs md:text-lg xl:text-sm font-bold cursor-pointer backdrop-blur-sm bg-black/50">
+            <button className="px-10 md:px-16 xl:px-12 py-3 md:py-5 xl:py-3 rounded-full border-[2px] border-white text-white hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-xs md:text-lg xl:text-sm font-bold cursor-pointer backdrop-blur-sm bg-black/50">
               Register
             </button>
           </div>

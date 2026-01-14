@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
 import AboutUs from '../components/AboutUs';
 // import Tracks2 from '../components/Tracks2';
+import ContactUs from '../components/ContactUs';
 import Prizes from '../components/Prizes';
 import Sponsors from '@/components/Sponsors';
 import Faqs from '@/components/Faqs';
@@ -54,6 +55,7 @@ const Home = () => {
          <FlipCard data={data} />
       </div> */}
       <Faqs />
+      <ContactUs />
     </main> 
   )
 }
