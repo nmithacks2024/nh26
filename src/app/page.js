@@ -46,8 +46,8 @@ const Home = () => {
         spotlightRadius={300}
         particleCount={12}
       />
-      <Teams />
-      {/* <Teams2/> */}
+      {/* <Teams /> */}
+      <Teams2/>
       {/* Container to center the card so it doesn't stretch full width */}
       {/* <div className="flex justify-center py-20">
          <FlipCard data={data} />
