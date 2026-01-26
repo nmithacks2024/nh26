@@ -56,14 +56,14 @@ const ContactUs = () => {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-          <SocialIcon href="https://instagram.com" icon={<FaInstagram size={24} />} />
-          <SocialIcon href="https://facebook.com" icon={<FaFacebookF size={24} />} />
-          <SocialIcon href="https://discord.com" icon={<FaDiscord size={24} />} />
-          <SocialIcon href="https://linkedin.com" icon={<FaLinkedinIn size={24} />} />
-          <SocialIcon href="https://twitter.com" icon={<FaXTwitter size={24} />} />
+          <SocialIcon href="https://www.instagram.com/nmit_hacks?igsh=YzJyaGx4Z2oyZzZy" icon={<FaInstagram size={24} />} />
+          {/* <SocialIcon href="https://facebook.com" icon={<FaFacebookF size={24} />} /> */}
+          {/* <SocialIcon href="https://discord.com" icon={<FaDiscord size={24} />} /> */}
+          <SocialIcon href="https://www.linkedin.com/in/nmit-hacks-8082531bb/" icon={<FaLinkedinIn size={24} />} />
+          <SocialIcon href="https://x.com/NMIT_Hacks" icon={<FaXTwitter size={24} />} />
         </div>
 
-        <button className="mt-4 px-6 py-2 md:px-8 md:py-3 rounded-full border-2 cursor-pointer border-red-500 text-white hover:bg-white hover:text-[#ff0000] transition-all duration-300 font-semibold text-sm md:text-base">
+        <button className="mt-4 px-6 py-2 md:px-8 md:py-3 rounded-full border-2 cursor-pointer border-red-500 text-white hover:bg-white hover:text-black transition-all duration-300 font-semibold text-sm md:text-base">
           Code of Conduct
         </button>
 

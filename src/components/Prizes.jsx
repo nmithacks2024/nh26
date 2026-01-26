@@ -140,7 +140,7 @@ const Prizes = () => {
           {/* 2nd Place (Left) - Silver */}
           <div
             ref={bar2}
-            className="w-1/3 max-w-[200px] h-[188px] bg-gradient-to-b from-[#ff0000] to-[#fbaaaaff] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
+            className="w-1/3 max-w-[200px] bg-gradient-to-b from-[#F54646] to-[#FD9A9A] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-gray-300 text-gray-800 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
@@ -148,10 +148,10 @@ const Prizes = () => {
             </div>
 
             {/* Moving Container for Coin */}
-            <div ref={coin2} onMouseEnter={handleHover} className="relative z-20 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full">
+            <div ref={coin2} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
               {/* Coin Image */}
               <div className="relative z-10 w-full h-full">
-                <Image src="/assets/second.png" alt="2nd Place" width={96} height={96} className="object-contain w-full h-full" />
+                <Image src="/assets/second.png" alt="2nd Place" width={96} height={96} className="object-contain" />
               </div>
             </div>
           </div>
@@ -159,17 +159,17 @@ const Prizes = () => {
           {/* 1st Place (Center) - Gold */}
           <div
             ref={bar1}
-            className="w-1/3 max-w-[200px] h-[188px] bg-gradient-to-b from-[#ff0000] to-[#fbaaaaff] rounded-t-lg relative flex flex-col justify-end pb-6 items-center shadow-[0_0_30px_rgba(255,255,255,0.3)] z-10"
+            className="w-1/3 max-w-[200px] bg-gradient-to-b from-[#F54646] to-[#FD9A9A] rounded-t-lg relative flex flex-col justify-end pb-6 items-center shadow-[0_0_30px_rgba(255,255,255,0.3)] z-10"
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-yellow-400 text-yellow-900 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
               ₹ 25,000
             </div>
 
-            <div ref={coin1} onMouseEnter={handleHover} className="relative z-20 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full">
+            <div ref={coin1} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
               {/* Coin Image */}
               <div className="relative z-10 w-full h-full">
-                <Image src="/assets/first.png" alt="1st Place" width={96} height={96} className="object-contain w-full h-full" />
+                <Image src="/assets/first.png" alt="1st Place" width={96} height={96} className="object-contain" />
               </div>
             </div>
           </div>
@@ -177,17 +177,17 @@ const Prizes = () => {
           {/* 3rd Place (Right) - Bronze */}
           <div
             ref={bar3}
-            className="w-1/3 max-w-[200px] h-[188px] bg-gradient-to-b from-[#ff0000] to-[#fbaaaaff] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
+            className="w-1/3 max-w-[200px] bg-gradient-to-b from-[#F54646] to-[#FD9A9A] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-orange-300 text-orange-900 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
               ₹ 10,000
             </div>
 
-            <div ref={coin3} onMouseEnter={handleHover} className="relative z-20 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full">
+            <div ref={coin3} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
               {/* Coin Image */}
               <div className="relative z-10 w-full h-full">
-                <Image src="/assets/third.png" alt="3rd Place" width={96} height={96} className="object-contain w-full h-full" />
+                <Image src="/assets/third.png" alt="3rd Place" width={96} height={96} className="object-contain" />
               </div>
             </div>
           </div>
