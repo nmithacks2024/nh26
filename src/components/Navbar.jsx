@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: 'Tracks', href: '#tracks' },
     { name: 'Prizes', href: '#prizes' },
     { name: 'Sponsors', href: '#sponsors' },
-    { name: 'Teams', href: '#teams' },
+    // { name: 'Teams', href: '#teams' },
     { name: 'FAQs', href: '#faqs' },
     { name: 'Contact Us', href: '#contact' },
   ];
@@ -86,14 +86,14 @@ const Navbar = () => {
       {/* Mobile Dropdown Menu */}
       {isOpen && (
         <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 rounded-2xl p-4 flex flex-col gap-2 z-40 md:hidden w-[70vw] max-w-sm animate-fade-in-up transition-all duration-500
-          bg-[#02093D] border border-[#ff0000] shadow-[0_8px_32px_rgba(0,0,0,0.3)]
+          bg-[#02093D] border-2 border-[#ff0000] shadow-[0_8px_32px_rgba(0,0,0,0.3)]
         `}>
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               onClick={() => setIsOpen(false)}
-              className="text-sm font-medium text-gray-300 hover:text-[#ff0000] px-4 py-3 rounded-lg transition-all duration-200 uppercase tracking-wide font-['PPMori'] block text-center"
+              className="text-sm font-bold text-gray-300 hover:text-[#ff0000] px-4 py-3 rounded-lg transition-all duration-200 uppercase tracking-wide font-['PPMori'] block text-center"
             >
               {item.name}
             </Link>

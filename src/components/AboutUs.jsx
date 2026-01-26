@@ -349,12 +349,12 @@ const StatCard = ({ icon, number, label }) => {
 
   return (
     <div
-      className="flex-1 mr-5 border-2 border-[#FF0000] rounded-3xl p-6 text-left bg-[#02093D] backdrop-blur-sm hover:shadow-[0_0_20px_rgba(255,0,0,0.5)] transition-all duration-300"
+      className="flex-1 lg:mr-5 border-2 border-[#FF0000] rounded-3xl p-6 text-left bg-[#02093D] backdrop-blur-sm hover:shadow-[0_0_20px_rgba(255,0,0,0.5)] transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex items-start justify-between">
+        <div className="flex-1 min-w-0 pr-2">
           {/* We use the FuzzyText component here instead of a simple h3 */}
           {/* fontSize={36} matches the original text-4xl size approximately */}
           <div className="mb-1 -ml-8">
@@ -363,7 +363,7 @@ const StatCard = ({ icon, number, label }) => {
               fontWeight={700}
               fontFamily="inherit"
               color="#fefefdff"
-              className="font-['PPMori']"
+              className="font-['PPMori'] max-w-full"
               enableHover={false} // Disable internal hover, use external control
               hovered={isHovered} // Pass external hover state
               fuzzRange={12} // Moderate fuzz
@@ -372,9 +372,9 @@ const StatCard = ({ icon, number, label }) => {
             </FuzzyText>
           </div>
 
-          <p className="mt-2 text-gray-300 font-['PPMori']">{label}</p>
+          <p className="mt-2 text-gray-300 font-['PPMori'] break-words">{label}</p>
         </div>
-        <div className="w-16 h-16 flex items-center justify-center bg-[#02093D] rounded-2xl border-2 border-[#ff0000]">
+        <div className="w-16 h-16 shrink-0 flex items-center justify-center bg-[#02093D] rounded-2xl border-2 border-[#ff0000] mt-2">
           {icon}
         </div>
       </div>
@@ -383,8 +383,13 @@ const StatCard = ({ icon, number, label }) => {
 }
 
 const FeatureCard = ({ title, description, iconSrc, altText }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   return (
-    <div className="relative group bg-[#02093D] border border-[#FF0000] border-2 rounded-3xl p-8 text-left backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)] overflow-hidden transform-gpu flex flex-col items-center">
+    <div 
+      onClick={() => setIsClicked(!isClicked)}
+      className={`relative group bg-[#02093D] border border-[#FF0000] border-2 rounded-3xl p-8 text-left backdrop-blur-sm transition-all duration-300 overflow-hidden transform-gpu flex flex-col items-center cursor-pointer ${isClicked ? '-translate-y-1 shadow-[0_0_20px_rgba(255,0,0,0.5)]' : 'hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)]'}`}
+    >
 
       <div className="relative z-20 flex flex-col items-center w-full">
         <h3 className="text-2xl font-bold text-[#ef8f8fff] text-center mb-6 font-['PPMori']">{title}</h3>
@@ -392,10 +397,10 @@ const FeatureCard = ({ title, description, iconSrc, altText }) => {
         {/* Icon Container Wrapper */}
         <div className="relative mb-6 z-10">
           {/* Expanding Overlay */}
-          <div className="absolute inset-0 bg-white/10 rounded-2xl scale-100 group-hover:scale-[25] transition-transform duration-1000 ease-in-out origin-center z-0 pointer-events-none"></div>
+          <div className={`absolute inset-0 bg-white/10 rounded-2xl transition-transform duration-1000 ease-in-out origin-center z-0 pointer-events-none ${isClicked ? 'scale-[25]' : 'scale-100 group-hover:scale-[25]'}`}></div>
 
           {/* Actual Icon Box */}
-          <div className="relative p-3 bg-[#02093D]  rounded-2xl border-2 border-[#ff0000] group-hover:border-white/50 transition-colors duration-300 z-10">
+          <div className={`relative p-3 bg-[#02093D] rounded-2xl border-2 transition-colors duration-300 z-10 ${isClicked ? 'border-white/50' : 'border-[#ff0000] group-hover:border-white/50'}`}>
             <Image
               src={iconSrc}
               alt={altText}
@@ -407,7 +412,7 @@ const FeatureCard = ({ title, description, iconSrc, altText }) => {
           </div>
         </div>
 
-        <p className="text-gray-300 text-base leading-relaxed font-['PPMori'] opacity-90 text-center transition-colors duration-300 group-hover:text-white">
+        <p className={`text-gray-300 text-base leading-relaxed font-['PPMori'] opacity-90 text-center transition-colors duration-300 ${isClicked ? 'text-white' : 'group-hover:text-white'}`}>
           {description}
         </p>
       </div>
@@ -416,9 +421,9 @@ const FeatureCard = ({ title, description, iconSrc, altText }) => {
 }
 
 const AboutUs = () => {
-  const registrationsTarget = 2000
-  const participationsTarget = 180
-  const reachTarget = 150000
+  const registrationsTarget = 5300
+  const participationsTarget = 210
+  const reachTarget = 250000
 
   const registrations = useCountUp(registrationsTarget, 2500)
   const participations = useCountUp(participationsTarget, 2500)
@@ -428,7 +433,7 @@ const AboutUs = () => {
     <section className="w-full py-20 bg-[#010524ff] text-white relative">
 
       <div className="max-w-[90vw] xl:max-w-7xl mx-auto px-6 relative z-10">
-        <h2 className="text-5xl text-[#f17575ff] font-bold text-center mb-16 font-['PPMori'] tracking-tight">
+        <h2 className="text-3xl md:text-5xl text-[#f17575ff] font-bold text-center mb-16 font-['PPMori'] tracking-tight">
           <span className="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#f17575ff] after:transition-all after:duration-300 hover:after:w-full">
             About Us
           </span>

@@ -25,7 +25,7 @@ const Prizes = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container.current,
-        start: "top 70%", // Start animation when top of prizes section hits 70% of viewport
+        start: "top 50%", // Start animation when top of prizes section hits 70% of viewport
         once: true
       },
       delay: 0.5 // Delay the start of the animation sequence
@@ -128,7 +128,7 @@ const Prizes = () => {
   return (
     <section ref={container} className="w-full py-20 bg-[#010524ff] text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center">
-        <h2 className="text-5xl font-bold text-center text-[#f17575ff] mb-24 font-['PPMori'] tracking-tight">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-[#f17575ff] mb-24 font-['PPMori'] tracking-tight">
           <span className="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#f17575ff] after:transition-all after:duration-300 hover:after:w-full">
             Prizes
           </span>
@@ -140,7 +140,7 @@ const Prizes = () => {
           {/* 2nd Place (Left) - Silver */}
           <div
             ref={bar2}
-            className="w-1/3 max-w-[200px] bg-gradient-to-b from-[#F54646] to-[#FD9A9A] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
+            className="w-1/3 max-w-[200px] h-[188px] bg-gradient-to-b from-[#ff0000] to-[#fbaaaaff] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-gray-300 text-gray-800 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
@@ -159,7 +159,7 @@ const Prizes = () => {
           {/* 1st Place (Center) - Gold */}
           <div
             ref={bar1}
-            className="w-1/3 max-w-[200px] bg-gradient-to-b from-[#F54646] to-[#FD9A9A] rounded-t-lg relative flex flex-col justify-end pb-6 items-center shadow-[0_0_30px_rgba(255,255,255,0.3)] z-10"
+            className="w-1/3 max-w-[200px] h-[188px] bg-gradient-to-b from-[#ff0000] to-[#fbaaaaff] rounded-t-lg relative flex flex-col justify-end pb-6 items-center shadow-[0_0_30px_rgba(255,255,255,0.3)] z-10"
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-yellow-400 text-yellow-900 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
@@ -177,7 +177,7 @@ const Prizes = () => {
           {/* 3rd Place (Right) - Bronze */}
           <div
             ref={bar3}
-            className="w-1/3 max-w-[200px] bg-gradient-to-b from-[#F54646] to-[#FD9A9A] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
+            className="w-1/3 max-w-[200px] h-[188px] bg-gradient-to-b from-[#ff0000] to-[#fbaaaaff] rounded-t-lg relative flex flex-col justify-end pb-6 items-center"
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-orange-300 text-orange-900 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
