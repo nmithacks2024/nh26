@@ -12,8 +12,8 @@ const MOBILE_BREAKPOINT = 768;
 
 const sponsorsData = {
   platinum: [
-      { title: 'YellowHillsAI', image: '/assets/yellowhillsai.png', link: 'https://yellowhills.ai/' },
-      { title: 'Lorem Ipsum' }
+    { title: 'YellowHillsAI', image: '/assets/yellowhillsai.png', link: 'https://yellowhills.ai/' },
+    { title: 'Lorem Ipsum' }
   ],
   gold: Array(2).fill({ title: 'Lorem Ipsum' }),
   silver: Array(4).fill({ title: 'Lorem Ipsum' })
@@ -136,7 +136,7 @@ const ParticleCard = ({
         // Explicitly set background here to be safe, though createParticleElement should have handled it
         clone.style.background = `rgba(${glowColor}, 1)`;
         clone.style.boxShadow = `0 0 6px rgba(${glowColor}, 0.6)`;
-        
+
         cardRef.current.appendChild(clone);
         particlesRef.current.push(clone);
 
@@ -661,102 +661,103 @@ const Sponsors = ({
 
       <BentoCardGrid gridRef={gridRef}>
         {/* Title inside Grid for perfect alignment */}
-        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-8 z-30 relative font-['PPMori'] tracking-tight pt-4 w-full">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-[#f17575ff] mb-8 z-30 relative font-['PPMori'] tracking-tight pt-4 w-full">
+          <span className="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#f17575ff] after:transition-all after:duration-300 hover:after:w-full">
             Sponsors
+          </span>
         </h2>
 
         <div className="card-responsive flex flex-col items-center">
           {['platinum', 'gold', 'silver'].map((tier) => (
             <div key={tier} className="w-full flex flex-col items-center gap-8 mb-8">
-               <ShinyText 
-                    text={tier.charAt(0).toUpperCase() + tier.slice(1)} 
-                    disabled={false} 
-                    speed={3} 
-                    className="text-2xl md:text-2xl font-bold uppercase tracking-widest font-['PPMori'] opacity-90"
-                    color={tierHexColors[tier]}
-                    shineColor={tierShineColors[tier]}
-                />
-               <div className="tier-row w-full px-4">
-                  {sponsorsData[tier].map((item, index) => {
-                      const tierColor = tierColors[tier] || glowColor;
-                      
-                      const baseClassName = `card flex flex-col items-center justify-center relative rounded-[20px] border-2 border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
-                          enableBorderGlow ? 'card--border-glow' : ''
-                      } ${item.link ? 'cursor-pointer' : ''}`;
+              <ShinyText
+                text={tier.charAt(0).toUpperCase() + tier.slice(1)}
+                disabled={false}
+                speed={3}
+                className="text-2xl md:text-2xl font-bold uppercase tracking-widest font-['PPMori'] opacity-90"
+                color={tierHexColors[tier]}
+                shineColor={tierShineColors[tier]}
+              />
+              <div className="tier-row w-full px-4">
+                {sponsorsData[tier].map((item, index) => {
+                  const tierColor = tierColors[tier] || glowColor;
 
-                      const cardStyle = {
-                          backgroundColor: 'var(--background-dark)', // Keep dark background for contrast
-                          borderColor: 'var(--border-color)',
-                          color: 'var(--white)',
-                          '--glow-x': '50%',
-                          '--glow-y': '50%',
-                          '--glow-intensity': '0',
-                          '--glow-radius': '200px',
-                          '--tier-glow': tierColor // Dynamic CSS variable for this card
-                      };
+                  const baseClassName = `card flex flex-col items-center justify-center relative rounded-[20px] border-2 border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${enableBorderGlow ? 'card--border-glow' : ''
+                    } ${item.link ? 'cursor-pointer' : ''}`;
 
-                      if (enableStars) {
-                          return (
-                              <ParticleCard
-                                  key={`${tier}-${index}-${tierColor}`} // Force re-render if color changes
-                                  className={baseClassName}
-                                  style={cardStyle}
-                                  disableAnimations={shouldDisableAnimations}
-                                  particleCount={particleCount}
-                                  glowColor={tierColor}
-                                  enableTilt={enableTilt}
-                                  clickEffect={clickEffect}
-                                  enableMagnetism={enableMagnetism}
-                                  href={item.link}
-                              >
-                                  <div className="card__content flex flex-col items-center justify-center relative text-white h-full z-10 p-4 text-center w-full">
-                                      {item.image ? (
-                                        <div className="relative w-full h-full flex items-center justify-center p-4">
-                                            <Image 
-                                                src={item.image} 
-                                                alt={item.title} 
-                                                fill
-                                                className="object-contain p-4"
-                                            />
-                                        </div>
-                                      ) : (
-                                        <h3 className={`font-bold text-lg md:text-xl text-white/90 ${textAutoHide ? 'text-clamp-2' : ''}`}>
-                                            {item.title}
-                                        </h3>
-                                      )}
-                                  </div>
-                              </ParticleCard>
-                          );
-                      }
+                  const cardStyle = {
+                    backgroundColor: 'var(--background-dark)', // Keep dark background for contrast
+                    borderColor: 'var(--border-color)',
+                    color: 'var(--white)',
+                    '--glow-x': '50%',
+                    '--glow-y': '50%',
+                    '--glow-intensity': '0',
+                    '--glow-radius': '200px',
+                    '--tier-glow': tierColor // Dynamic CSS variable for this card
+                  };
 
-                      return (
-                          <div
-                              key={`${tier}-${index}`}
-                              className={baseClassName}
-                              style={cardStyle}
-                              // ... (Ref logic would go here if not using ParticleCard, but assuming enableStars is mostly true)
-                              // For simplicity in this renovation, defaulting to just the struct since enableStars is widely used
-                              // If enableStars is false, we'd need the ref logic. 
-                              // I'll leave the ParticleCard branch as the main logic for now as per "fully utilises Sponsors.jsx components"
-                          >
-                               <div className="card__content flex flex-col items-center justify-center relative text-white h-full z-10 p-4 text-center w-full">
-                                  {item.image ? (
-                                    <div className="relative w-full h-full flex items-center justify-center p-4">
-                                        <Image 
-                                            src={item.image} 
-                                            alt={item.title} 
-                                            fill
-                                            className="object-contain p-4"
-                                        />
-                                    </div>
-                                  ) : (
-                                    <h3 className="font-bold text-lg">{item.title}</h3>
-                                  )}
-                               </div>
+                  if (enableStars) {
+                    return (
+                      <ParticleCard
+                        key={`${tier}-${index}-${tierColor}`} // Force re-render if color changes
+                        className={baseClassName}
+                        style={cardStyle}
+                        disableAnimations={shouldDisableAnimations}
+                        particleCount={particleCount}
+                        glowColor={tierColor}
+                        enableTilt={enableTilt}
+                        clickEffect={clickEffect}
+                        enableMagnetism={enableMagnetism}
+                        href={item.link}
+                      >
+                        <div className="card__content flex flex-col items-center justify-center relative text-white h-full z-10 p-4 text-center w-full">
+                          {item.image ? (
+                            <div className="relative w-full h-full flex items-center justify-center p-4">
+                              <Image
+                                src={item.image}
+                                alt={item.title}
+                                fill
+                                className="object-contain p-4"
+                              />
+                            </div>
+                          ) : (
+                            <h3 className={`font-bold text-lg md:text-xl text-white/90 ${textAutoHide ? 'text-clamp-2' : ''}`}>
+                              {item.title}
+                            </h3>
+                          )}
+                        </div>
+                      </ParticleCard>
+                    );
+                  }
+
+                  return (
+                    <div
+                      key={`${tier}-${index}`}
+                      className={baseClassName}
+                      style={cardStyle}
+                    // ... (Ref logic would go here if not using ParticleCard, but assuming enableStars is mostly true)
+                    // For simplicity in this renovation, defaulting to just the struct since enableStars is widely used
+                    // If enableStars is false, we'd need the ref logic. 
+                    // I'll leave the ParticleCard branch as the main logic for now as per "fully utilises Sponsors.jsx components"
+                    >
+                      <div className="card__content flex flex-col items-center justify-center relative text-white h-full z-10 p-4 text-center w-full">
+                        {item.image ? (
+                          <div className="relative w-full h-full flex items-center justify-center p-4">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              fill
+                              className="object-contain p-4"
+                            />
                           </div>
-                      );
-                  })}
-               </div>
+                        ) : (
+                          <h3 className="font-bold text-lg">{item.title}</h3>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           ))}
         </div>

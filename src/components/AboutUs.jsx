@@ -34,7 +34,7 @@ const FuzzyText = ({
 }) => {
   const canvasRef = useRef(null);
   const hoveredRef = useRef(hovered);
-  
+
   useEffect(() => {
     hoveredRef.current = hovered;
   }, [hovered]);
@@ -346,9 +346,9 @@ function useCountUp(target, duration = 1500) {
 // --- 3. STAT CARD WITH FUZZY TEXT & ICONS ---
 const StatCard = ({ icon, number, label }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
-    <div 
+    <div
       className="flex-1 mr-5 border-2 border-[#FF0000] rounded-3xl p-6 text-left bg-[#02093D] backdrop-blur-sm hover:shadow-[0_0_20px_rgba(255,0,0,0.5)] transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -357,12 +357,12 @@ const StatCard = ({ icon, number, label }) => {
         <div>
           {/* We use the FuzzyText component here instead of a simple h3 */}
           {/* fontSize={36} matches the original text-4xl size approximately */}
-          <div className="mb-1 -ml-8"> 
-            <FuzzyText 
-              fontSize={36} 
-              fontWeight={700} 
-              fontFamily="inherit" 
-              color="#fefefdff" 
+          <div className="mb-1 -ml-8">
+            <FuzzyText
+              fontSize={36}
+              fontWeight={700}
+              fontFamily="inherit"
+              color="#fefefdff"
               className="font-['PPMori']"
               enableHover={false} // Disable internal hover, use external control
               hovered={isHovered} // Pass external hover state
@@ -371,7 +371,7 @@ const StatCard = ({ icon, number, label }) => {
               {number.toString()}
             </FuzzyText>
           </div>
-          
+
           <p className="mt-2 text-gray-300 font-['PPMori']">{label}</p>
         </div>
         <div className="w-16 h-16 flex items-center justify-center bg-[#02093D] rounded-2xl border-2 border-[#ff0000]">
@@ -385,28 +385,28 @@ const StatCard = ({ icon, number, label }) => {
 const FeatureCard = ({ title, description, iconSrc, altText }) => {
   return (
     <div className="relative group bg-[#02093D] border border-[#FF0000] border-2 rounded-3xl p-8 text-left backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)] overflow-hidden transform-gpu flex flex-col items-center">
-      
+
       <div className="relative z-20 flex flex-col items-center w-full">
-        <h3 className="text-2xl font-bold text-[#ffffff] text-center mb-6 font-['PPMori']">{title}</h3>
-        
+        <h3 className="text-2xl font-bold text-[#ef8f8fff] text-center mb-6 font-['PPMori']">{title}</h3>
+
         {/* Icon Container Wrapper */}
         <div className="relative mb-6 z-10">
-           {/* Expanding Overlay */}
-           <div className="absolute inset-0 bg-white/10 rounded-2xl scale-100 group-hover:scale-[25] transition-transform duration-1000 ease-in-out origin-center z-0 pointer-events-none"></div>
+          {/* Expanding Overlay */}
+          <div className="absolute inset-0 bg-white/10 rounded-2xl scale-100 group-hover:scale-[25] transition-transform duration-1000 ease-in-out origin-center z-0 pointer-events-none"></div>
 
-           {/* Actual Icon Box */}
-           <div className="relative p-3 bg-[#02093D]  rounded-2xl border-2 border-[#ff0000] group-hover:border-white/50 transition-colors duration-300 z-10">
-             <Image 
-               src={iconSrc} 
-               alt={altText} 
-               width={48} 
-               height={48} 
-               className="w-12 h-12" 
-               style={{ filter: 'brightness(0) invert(1)' }} 
-             />
-           </div>
+          {/* Actual Icon Box */}
+          <div className="relative p-3 bg-[#02093D]  rounded-2xl border-2 border-[#ff0000] group-hover:border-white/50 transition-colors duration-300 z-10">
+            <Image
+              src={iconSrc}
+              alt={altText}
+              width={48}
+              height={48}
+              className="w-12 h-12"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
+          </div>
         </div>
-        
+
         <p className="text-gray-300 text-base leading-relaxed font-['PPMori'] opacity-90 text-center transition-colors duration-300 group-hover:text-white">
           {description}
         </p>
@@ -426,9 +426,13 @@ const AboutUs = () => {
 
   return (
     <section className="w-full py-20 bg-[#010524ff] text-white relative">
-      
+
       <div className="max-w-[90vw] xl:max-w-7xl mx-auto px-6 relative z-10">
-        <h2 className="text-5xl text-[#ffffff] font-bold text-center mb-16 font-['PPMori'] tracking-tight">About Us</h2>
+        <h2 className="text-5xl text-[#f17575ff] font-bold text-center mb-16 font-['PPMori'] tracking-tight">
+          <span className="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#f17575ff] after:transition-all after:duration-300 hover:after:w-full">
+            About Us
+          </span>
+        </h2>
 
         <div className="flex flex-col lg:flex-row items-stretch gap-6 lg:gap-0 mb-12">
           {/* STAT CARD 1: Registrations */}
@@ -436,29 +440,29 @@ const AboutUs = () => {
             number={`${registrations}+`}
             label="Registrations"
             icon={
-              <Image 
-                src={contactFormIcon} 
-                alt="Registrations" 
-                width={32} 
-                height={32} 
-                className="w-8 h-8" 
+              <Image
+                src={contactFormIcon}
+                alt="Registrations"
+                width={32}
+                height={32}
+                className="w-8 h-8"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
             }
-          />        
+          />
 
           {/* STAT CARD 2: Participations */}
           <StatCard
             number={`${participations}+`}
             label="On-Campus Participations"
             icon={
-              <Image 
-                src={raiseHandIcon} 
-                alt="On-Campus Participations" 
-                width={32} 
-                height={32} 
-                className="w-8 h-8" 
-                style={{ filter: 'brightness(0) invert(1)' }} 
+              <Image
+                src={raiseHandIcon}
+                alt="On-Campus Participations"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             }
           />
@@ -468,34 +472,34 @@ const AboutUs = () => {
             number={`${reach}+`}
             label="Reach on Social Media"
             icon={
-              <Image 
-                src={socialMediaIcon} 
-                alt="Reach on Social Media" 
-                width={32} 
-                height={32} 
-                className="w-8 h-8" 
-                style={{ filter: 'brightness(0) invert(1)' }} 
+              <Image
+                src={socialMediaIcon}
+                alt="Reach on Social Media"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             }
           />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-          <FeatureCard 
+          <FeatureCard
             title="About NMIT Hacks"
             description="NMIT Hacks builds a nationwide community of student innovators — connecting participants from top institutions with industry mentors. Over multiple editions we provide learning, collaboration and career-growth opportunities through a mix of digital and on-campus activities."
             iconSrc={aboutus}
             altText="About Us"
           />
 
-          <FeatureCard 
+          <FeatureCard
             title="Expect Great Things"
             description="Mentors from industry, hands-on workshops, and curated challenges give you the tools to build, present, and scale great ideas. Expect mentorship, judged tracks, and prizes that help projects move forward."
             iconSrc={greatThingsImg}
             altText="Expect great things"
           />
 
-          <FeatureCard 
+          <FeatureCard
             title="All Students Welcome!"
             description="Beginners and experienced hackers both thrive here — no entry fee required. Teams, solo participants, and students from any discipline are encouraged to join, learn, and collaborate."
             iconSrc={welcome}

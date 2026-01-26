@@ -73,8 +73,10 @@ const Faqs = () => {
 
     return (
         <div className="w-full py-20 px-4 md:px-10 bg-[#010524ff]">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-12 font-['PPMori']">
-                Frequently Asked Questions
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-[#f17575ff] mb-12 font-['PPMori']">
+                <span className="relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#f17575ff] after:transition-all after:duration-300 hover:after:w-full">
+                    Frequently Asked Questions
+                </span>
             </h2>
             <div className="flex flex-col w-full">
                 <AnimatePresence initial={false}>
@@ -85,16 +87,16 @@ const Faqs = () => {
                             animate={{ opacity: 1, height: "auto", marginBottom: 16 }}
                             exit={{ opacity: 0, height: 0, marginBottom: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="border border-[#ff0000] rounded-lg overflow-hidden w-full"
+                            className="border-[0.5px] border-[#b69898ff] rounded-lg overflow-hidden w-full"
                         >
                             <div
                                 className="flex justify-between items-center w-full p-5 cursor-pointer bg-[#02093D]"
                                 onClick={() => toggleFaq(index)}
                             >
-                                <h3 className={`text-lg md:text-xl font-medium font-['PPMori'] ${activeIndex === index ? 'text-[#ff0000]' : 'text-white'}`}>
+                                <h3 className={`text-lg md:text-xl font-medium font-['PPMori'] hover:text-[#f17575ff] ${activeIndex === index ? 'text-[#f17575ff]' : 'text-white'}`}>
                                     {faq.question}
                                 </h3>
-                                <div className="text-white text-xl font-light">
+                                <div className="text-white text-xl font-light hover:text-[#f17575ff]">
                                     {activeIndex === index ? (
                                         <span>&#215;</span>
                                     ) : (
