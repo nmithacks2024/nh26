@@ -148,10 +148,10 @@ const Prizes = () => {
             </div>
 
             {/* Moving Container for Coin */}
-            <div ref={coin2} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
+            <div ref={coin2} onMouseEnter={handleHover} className="relative z-20 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full">
               {/* Coin Image */}
               <div className="relative z-10 w-full h-full">
-                <Image src="/assets/second.png" alt="2nd Place" width={96} height={96} className="object-contain" />
+                <Image src="/assets/second.png" alt="2nd Place" width={96} height={96} className="object-contain w-full h-full" />
               </div>
             </div>
           </div>
@@ -166,10 +166,10 @@ const Prizes = () => {
               ₹ 25,000
             </div>
 
-            <div ref={coin1} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
+            <div ref={coin1} onMouseEnter={handleHover} className="relative z-20 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full">
               {/* Coin Image */}
               <div className="relative z-10 w-full h-full">
-                <Image src="/assets/first.png" alt="1st Place" width={96} height={96} className="object-contain" />
+                <Image src="/assets/first.png" alt="1st Place" width={96} height={96} className="object-contain w-full h-full" />
               </div>
             </div>
           </div>
@@ -184,10 +184,10 @@ const Prizes = () => {
               ₹ 10,000
             </div>
 
-            <div ref={coin3} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
+            <div ref={coin3} onMouseEnter={handleHover} className="relative z-20 w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full">
               {/* Coin Image */}
               <div className="relative z-10 w-full h-full">
-                <Image src="/assets/third.png" alt="3rd Place" width={96} height={96} className="object-contain" />
+                <Image src="/assets/third.png" alt="3rd Place" width={96} height={96} className="object-contain w-full h-full" />
               </div>
             </div>
           </div>
