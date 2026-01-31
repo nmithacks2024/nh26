@@ -1,6 +1,11 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const greatThingsImg = '/assets/greatthings.png'
 const aboutus = '/assets/aboutus.png'
@@ -9,7 +14,7 @@ const contactFormIcon = '/assets/contact-form.png'
 const raiseHandIcon = '/assets/raise-hand.png'
 const socialMediaIcon = '/assets/social-media.png'
 
-// --- 1. FUZZY TEXT COMPONENT (Your provided code) ---
+// --- 1. FUZZY TEXT COMPONENT ---
 const FuzzyText = ({
   children,
   fontSize = 'clamp(2rem, 10vw, 10rem)',
@@ -325,20 +330,39 @@ const FuzzyText = ({
 }
 
 // --- 2. COUNT UP HOOK ---
-function useCountUp(target, duration = 1500) {
+function useCountUp(target, duration = 2000, start = false) {
   const [value, setValue] = useState(0)
   const rafRef = useRef()
+  const startingRef = useRef(0)
+
+  // Easing function: easeOutCubic
+  const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
 
   useEffect(() => {
-    const start = performance.now()
-    const step = (ts) => {
-      const progress = Math.min((ts - start) / duration, 1)
-      setValue(Math.floor(progress * target))
-      if (progress < 1) rafRef.current = requestAnimationFrame(step)
+    if (!start) {
+      setValue(0)
+      return
     }
+
+    const startTime = performance.now()
+    const step = (currentTime) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const easedProgress = easeOutCubic(progress)
+
+      setValue(Math.floor(easedProgress * target))
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(step)
+      }
+    }
+
     rafRef.current = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [target, duration])
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [target, duration, start])
 
   return value
 }
@@ -382,13 +406,11 @@ const StatCard = ({ icon, number, label }) => {
   )
 }
 
-const FeatureCard = ({ title, description, iconSrc, altText }) => {
-  const [isClicked, setIsClicked] = useState(false);
-
+const FeatureCard = ({ title, description, iconSrc, altText, isActive, onToggle }) => {
   return (
-    <div 
-      onClick={() => setIsClicked(!isClicked)}
-      className={`relative group bg-[#02093D] border border-[#FF0000] border-2 rounded-3xl p-8 text-left backdrop-blur-sm transition-all duration-300 overflow-hidden transform-gpu flex flex-col items-center cursor-pointer ${isClicked ? '-translate-y-1 shadow-[0_0_20px_rgba(255,0,0,0.5)]' : 'hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)]'}`}
+    <div
+      onClick={onToggle}
+      className={`relative group bg-[#02093D] border border-[#FF0000] border-2 rounded-3xl p-8 text-left backdrop-blur-sm transition-all duration-300 overflow-hidden transform-gpu flex flex-col items-center cursor-pointer ${isActive ? '-translate-y-1 shadow-[0_0_20px_rgba(255,0,0,0.5)]' : 'hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)]'}`}
     >
 
       <div className="relative z-20 flex flex-col items-center w-full">
@@ -397,10 +419,10 @@ const FeatureCard = ({ title, description, iconSrc, altText }) => {
         {/* Icon Container Wrapper */}
         <div className="relative mb-6 z-10">
           {/* Expanding Overlay */}
-          <div className={`absolute inset-0 bg-white/10 rounded-2xl transition-transform duration-1000 ease-in-out origin-center z-0 pointer-events-none ${isClicked ? 'scale-[25]' : 'scale-100 group-hover:scale-[25]'}`}></div>
+          <div className={`absolute inset-0 bg-white/10 rounded-2xl transition-transform duration-1000 ease-in-out origin-center z-0 pointer-events-none ${isActive ? 'scale-[25]' : 'scale-100 group-hover:scale-[25]'}`}></div>
 
           {/* Actual Icon Box */}
-          <div className={`relative p-3 bg-[#02093D] rounded-2xl border-2 transition-colors duration-300 z-10 ${isClicked ? 'border-white/50' : 'border-[#ff0000] group-hover:border-white/50'}`}>
+          <div className={`relative p-3 bg-[#02093D] rounded-2xl border-2 transition-colors duration-300 z-10 ${isActive ? 'border-white/50' : 'border-[#ff0000] group-hover:border-white/50'}`}>
             <Image
               src={iconSrc}
               alt={altText}
@@ -412,7 +434,7 @@ const FeatureCard = ({ title, description, iconSrc, altText }) => {
           </div>
         </div>
 
-        <p className={`text-gray-300 text-base leading-relaxed font-['PPMori'] opacity-90 text-center transition-colors duration-300 ${isClicked ? 'text-white' : 'group-hover:text-white'}`}>
+        <p className={`text-gray-300 text-base leading-relaxed font-['PPMori'] opacity-90 text-center transition-colors duration-300 ${isActive ? 'text-white' : 'group-hover:text-white'}`}>
           {description}
         </p>
       </div>
@@ -425,12 +447,48 @@ const AboutUs = () => {
   const participationsTarget = 210
   const reachTarget = 250000
 
-  const registrations = useCountUp(registrationsTarget, 2500)
-  const participations = useCountUp(participationsTarget, 2500)
-  const reach = useCountUp(reachTarget, 2500)
+  const containerRef = useRef(null)
+  const [startCount, setStartCount] = useState(false)
+
+  useGSAP(() => {
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      toggleActions: "play reverse play reverse",
+      onEnter: () => setStartCount(true),
+      onLeave: () => setStartCount(false),
+      onEnterBack: () => setStartCount(true),
+      onLeaveBack: () => setStartCount(false),
+    })
+  }, { scope: containerRef })
+
+  const registrations = useCountUp(registrationsTarget, 4000, startCount)
+  const participations = useCountUp(participationsTarget, 4000, startCount)
+  const reach = useCountUp(reachTarget, 4000, startCount)
+
+  const [activeFeatureIndex, setActiveFeatureIndex] = useState(null)
+  const featuresRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (featuresRef.current && !featuresRef.current.contains(event.target)) {
+        setActiveFeatureIndex(null)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
+  const handleFeatureToggle = (index) => {
+    setActiveFeatureIndex(prevIndex => (prevIndex === index ? null : index))
+  }
 
   return (
-    <section className="w-full py-20 bg-[#010524ff] text-white relative">
+    <section className="w-full py-20 bg-[#010524ff] text-white relative" ref={containerRef}>
 
       <div className="max-w-[90vw] xl:max-w-7xl mx-auto px-6 relative z-10">
         <h2 className="text-3xl md:text-5xl text-[#f17575ff] font-bold text-center mb-16 font-['PPMori'] tracking-tight">
@@ -489,12 +547,14 @@ const AboutUs = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch" ref={featuresRef}>
           <FeatureCard
             title="About NMIT Hacks"
             description="NMIT Hacks builds a nationwide community of student innovators — connecting participants from top institutions with industry mentors. Over multiple editions we provide learning, collaboration and career-growth opportunities through a mix of digital and on-campus activities."
             iconSrc={aboutus}
             altText="About Us"
+            isActive={activeFeatureIndex === 0}
+            onToggle={() => handleFeatureToggle(0)}
           />
 
           <FeatureCard
@@ -502,6 +562,8 @@ const AboutUs = () => {
             description="Mentors from industry, hands-on workshops, and curated challenges give you the tools to build, present, and scale great ideas. Expect mentorship, judged tracks, and prizes that help projects move forward."
             iconSrc={greatThingsImg}
             altText="Expect great things"
+            isActive={activeFeatureIndex === 1}
+            onToggle={() => handleFeatureToggle(1)}
           />
 
           <FeatureCard
@@ -509,6 +571,8 @@ const AboutUs = () => {
             description="Beginners and experienced hackers both thrive here — no entry fee required. Teams, solo participants, and students from any discipline are encouraged to join, learn, and collaborate."
             iconSrc={welcome}
             altText="All Students Welcome"
+            isActive={activeFeatureIndex === 2}
+            onToggle={() => handleFeatureToggle(2)}
           />
         </div>
       </div>

@@ -133,6 +133,6 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px; /* Adjust based on navbar height */
+  /* Removed scroll-behavior: smooth to prevent jumping to top on refresh. */
+  scroll-padding-top: 100px;
 }
