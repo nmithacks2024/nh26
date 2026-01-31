@@ -32,19 +32,19 @@ const Home = () => {
     <main className="relative bg-black min-h-screen">
       <Navbar />
       <div className="-mt-[60px] w-full relative z-0">
-        <Hero/>
+        <Hero />
       </div>
       <section id="about">
         <AboutUs />
       </section>
       <section id="tracks">
-        <Tracks3/>
+        <Tracks3 />
       </section>
       <section id="prizes">
         <Prizes />
       </section>
       <section id="sponsors">
-        <Sponsors 
+        <Sponsors
           textAutoHide={true}
           enableStars={true}
           enableSpotlight={true}
@@ -70,7 +70,7 @@ const Home = () => {
       <section id="contact">
         <ContactUs />
       </section>
-    </main> 
+    </main>
   )
 }
 
