@@ -50,7 +50,7 @@ const Brochure = () => {
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
                     {/* Cylinder Visuals - Dark Blue */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-b from-[#000000] via-[#02093D] to-[#000000] border-2 border-[#f17575ff]/30"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#000000] via-[#02093D] to-[#000000] border-2 border-[#f17575ff]/30"></div>
                     
                     {/* Decorative Caps - Red #ff0000 */}
                     <div className="absolute left-[-5px] md:left-[-10px] top-1/2 -translate-y-1/2 w-[20px] md:w-[30px] h-[60px] md:h-[70px] bg-gradient-to-r from-[#ff0000] to-[#800000] rounded-l-lg border-y-2 border-l-2 border-[#fff] shadow-lg"></div>
@@ -112,7 +112,7 @@ const Brochure = () => {
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
                      {/* Cylinder Visuals - Dark Blue */}
-                     <div className="absolute inset-0 rounded-full bg-gradient-to-b from-[#000000] via-[#02093D] to-[#000000] border-2 border-[#f17575ff]/30"></div>
+                     <div className="absolute inset-0  bg-gradient-to-b from-[#000000] via-[#02093D] to-[#000000] border-2 border-[#f17575ff]/30"></div>
                      
                     {/* Decorative Caps - Red #ff0000 */}
                     <div className="absolute left-[-5px] md:left-[-10px] top-1/2 -translate-y-1/2 w-[20px] md:w-[30px] h-[60px] md:h-[70px] bg-gradient-to-r from-[#ff0000] to-[#800000] rounded-l-lg border-y-2 border-l-2 border-[#fff] shadow-lg"></div>

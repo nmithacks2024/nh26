@@ -11,53 +11,53 @@ const faqs = [
     {
         question: "2. Is this an online event?",
         answer:
-            "Yes, this is completely an online event. You can participate from the comfort of your home.",
+            "With online gangs thriving today, we hope to spread your physical connections and hence, our hackathon will be conducted in the Nitte University Bangalore campus, your social hub!",
     },
     {
         question: "3. Who can participate?",
         answer:
-            "Students, professionals, and coding enthusiasts from all backgrounds are welcome to participate.",
+            "Registration is open to undergraduates. Code, collab and create! The main goal is to socialize while tackling social issues!",
     },
     {
         question: "4. How can I get involved?",
         answer:
-            "You can register on our website and join our Discord server to stay updated and find teammates.",
+            "Register your team through Devfolio to submit your project idea and secure your spot. Follow us on our social media handles to stay up to date.",
     },
     {
         question: "5. What is the limit on the team size?",
-        answer: "You can have a team of 3 to 5 members.",
+        answer: "A team can have a maximum of 4 participants. We also accept individual registrations from the Tony Starks out there.",
     },
     {
-        question: "6. Lorem ipsum dolor sit amet?",
-        answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        question: "6. Is there a registration fee?",
+        answer: "Just like an open-wifi, our hub of new connections costs only $FREE! Join in and code away with our worry-free hospitality!",
     },
     {
-        question: "7. Ultricies mi quis hendrerit?",
-        answer: "Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Elementum sagittis vitae et leo duis ut diam.",
+        question: "7. Is there free WiFi?",
+        answer: "We believe that strong connections help bring out global change. So, yes! WiFi is on us!",
     },
     {
-        question: "8. Eget arcu dictum varius?",
-        answer: "Eget arcu dictum varius duis at consectetur lorem donec massa. Sapien faucibus et molestie ac feugiat sed lectus.",
+        question: "8. Do I have to give a project demo?",
+        answer: "Yes. Teams have to demonstrate the working of their project before the jury. After all, reviews are a fundamental part of any project!",
     },
     {
-        question: "9. Massa enim nec dui?",
-        answer: "Massa enim nec dui nunc mattis enim ut tellus elementum. Arcu odio ut sem nulla pharetra diam sit.",
+        question: "9. What is the evaluation criteria?",
+        answer: "An independent jury will score the participants based on the relevance, feasibility, implementation, presentation, and creativity of their project.",
     },
     {
-        question: "10. Tellus id interdum velit?",
-        answer: "Tellus id interdum velit laoreet id donec ultrices tincidunt. Morbi tincidunt augue interdum velit euismod in pellentesque.",
+        question: "10. Can I submit a pre-existing project?",
+        answer: "No. That would be grounds for disqualification. Conception of new ideas is the aim of this collab so follow the spirit!",
     },
     {
-        question: "11. Diam maecenas sed enim?",
-        answer: "Diam maecenas sed enim ut sem viverra aliquet. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque eleifend.",
+        question: "11. How would you ensure that the projects haven't been repeated?",
+        answer: "GitHub repositories of your team's project will have to be set to \"public\" (before, during and after the hackathon) so your idea could maybe become the spark needed to ignite a newer idea, all in real-time, with every update!",
     },
     {
-        question: "12. Arcu ac tortor dignissim?",
-        answer: "Arcu ac tortor dignissim convallis aenean et tortor at risus. Diam quam nulla porttitor massa id neque aliquam vestibulum morbi.",
+        question: "12. Will food be provided during the hackathon?",
+        answer: "Yes, food will be provided during hackathon hours to keep your energy flowing and ideas growing!",
     },
     {
-        question: "13. Blandit aliquam etiam erat?",
-        answer: "Blandit aliquam etiam erat velit scelerisque in dictum. Eget mi proin sed libero enim sed faucibus turpis.",
+        question: "13. Will accommodation be arranged for participants?",
+        answer: "Yes, accommodation will be provided so you can stay connected, collaborate without limits and co-create change throughout the event.",
     },
 ];
 

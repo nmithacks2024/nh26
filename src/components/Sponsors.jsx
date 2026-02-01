@@ -13,10 +13,10 @@ const MOBILE_BREAKPOINT = 768;
 const sponsorsData = {
   platinum: [
     { title: 'YellowHillsAI', image: '/assets/yellowhillsai.png', link: 'https://yellowhills.ai/' },
-    { title: 'Lorem Ipsum' }
+    { title: 'Coming Soon!' }
   ],
-  gold: Array(2).fill({ title: 'Lorem Ipsum' }),
-  silver: Array(4).fill({ title: 'Lorem Ipsum' })
+  gold: Array(2).fill({ title: 'Coming Soon!' }),
+  silver: Array(4).fill({ title: 'Coming Soon!' })
 };
 
 const tierColors = {
