@@ -32,7 +32,7 @@ const Navbar = () => {
     >
       <div
         className={`
-          rounded-full px-6 py-3
+          relative rounded-full px-6 py-3
           flex items-center justify-between md:justify-normal gap-4 lg:gap-8
           border-2 transition-all duration-500 ease-in-out
           ml-4 w-[calc(100vw-2rem)] translate-x-0
@@ -40,7 +40,6 @@ const Navbar = () => {
           bg-[#02093D] border-[#ff0000] shadow-[0_8px_32px_rgba(0,0,0,0.3)]
         `}
       >
-        {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/">
             <img
@@ -49,6 +48,11 @@ const Navbar = () => {
               className="h-8 w-auto object-contain"
             />
           </Link>
+        </div>
+
+        {/* Mobile Title */}
+        <div className="md:hidden absolute left-1/2 -translate-x-1/2 font-bold text-white text-sm sm:text-base tracking-wider font-['PPMori'] whitespace-nowrap z-50 pointer-events-none">
+          NMIT HACKS 2026
         </div>
 
         {/* Desktop Links */}
