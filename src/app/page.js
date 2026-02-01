@@ -10,8 +10,9 @@ import Sponsors from '@/components/Sponsors';
 import Faqs from '@/components/Faqs';
 import Teams from '@/components/Teams';
 import Teams2 from '@/components/Teams2';
-import { FlipCard } from '@/components/animate-ui/components/community/flip-card';
+import Tracks2 from '@/components/Tracks2';
 import Tracks3 from '../components/Tracks3';
+import Brochure from '@/components/Brochure';
 
 // --- ADD THIS DATA OBJECT ---
 const data = {
@@ -58,6 +59,11 @@ const Home = () => {
           particleCount={12}
         />
       </section>
+      
+      <section id="brochure">
+        <Brochure />
+      </section>
+
       {/* <Teams /> */}
       <section id="teams">
         <Teams2/>

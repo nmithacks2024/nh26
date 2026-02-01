@@ -3,21 +3,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const SliderRow = ({ direction = 'right', speed = 20, size = '150px', items }) => {
+const SliderRow = ({ direction = 'right', speed = 20, size = '150px', items, rowIndex, activeCard, onCardClick }) => {
   // Triple the items to ensure smooth looping without gaps
   const loopItems = [...items, ...items, ...items];
   const animationName = direction === 'right' ? 'scrollRight' : 'scrollLeft';
 
-  const [clickedIndex, setClickedIndex] = React.useState(null);
   const [isHovered, setIsHovered] = React.useState(false);
 
-  React.useEffect(() => {
-    const handleClickOutside = () => setClickedIndex(null);
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
-  }, []);
-
-  const isPaused = isHovered || clickedIndex !== null;
+  // Check if this row contains the active card
+  const isRowActive = activeCard && activeCard.rowIndex === rowIndex;
+  // Pause if hovered OR if this row has the active card
+  const isPaused = isHovered || isRowActive;
 
   return (
     <div className="flex overflow-hidden w-full relative z-0 py-4">
@@ -31,35 +27,41 @@ const SliderRow = ({ direction = 'right', speed = 20, size = '150px', items }) =
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {loopItems.map((item, index) => (
-          <div key={index} className="pr-4 md:pr-7 shrink-0">
-            <motion.div
-              className="flex items-center justify-center rounded-xl bg-[#02093D] border-2 border-[#ff0000] w-full h-full"
-              style={{
-                width: size,
-                height: `calc(${size} * 0.6)`,
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setClickedIndex(index);
-              }}
-              animate={
-                clickedIndex === index 
-                  ? { scale: 1.1, boxShadow: "0 0 10px rgba(255, 0, 0, 1.0)" } 
-                  : { scale: 1, boxShadow: "0 0 0px rgba(255, 0, 0, 0)" }
-              }
-              whileHover={{ 
-                scale: 1.1,
-                boxShadow: "0 0 10px rgba(255, 0, 0, 1.0)"
-              }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              <span className="text-white opacity-50 text-xs md:text-sm font-medium">
-                {item.label}
-              </span>
-            </motion.div>
-          </div>
-        ))}
+        {loopItems.map((item, index) => {
+          const isCardActive = isRowActive && activeCard.cardIndex === index;
+          return (
+            <div key={index} className="pr-4 md:pr-7 shrink-0">
+              <motion.div
+                className="flex items-center justify-center rounded-xl bg-[#02093D] border-2 border-[#ff0000] w-full h-full"
+                style={{
+                  width: size,
+                  height: `calc(${size} * 0.6)`,
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Only allow click effect on mobile/tablet (small screens)
+                  if (window.innerWidth < 768) {
+                    onCardClick(rowIndex, index);
+                  }
+                }}
+                animate={
+                  isCardActive
+                    ? { scale: 1.1, boxShadow: "0 0 10px rgba(255, 0, 0, 1.0)" } 
+                    : { scale: 1, boxShadow: "0 0 0px rgba(255, 0, 0, 0)" }
+                }
+                whileHover={{ 
+                  scale: 1.1,
+                  boxShadow: "0 0 10px rgba(255, 0, 0, 1.0)"
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                <span className="text-white opacity-50 text-xs md:text-sm font-medium">
+                  {item.label}
+                </span>
+              </motion.div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -69,6 +71,24 @@ const InfiniteSlider = () => {
   const items = Array.from({ length: 6 }, (_, i) => ({
     label: `Image ${i + 1}`,
   }));
+
+  const [activeCard, setActiveCard] = React.useState(null); // { rowIndex, cardIndex }
+
+  React.useEffect(() => {
+    const handleClickOutside = () => setActiveCard(null);
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  const handleCardClick = (rowIndex, cardIndex) => {
+    // If clicking the currently active card, deselect it (toggle off)
+    if (activeCard && activeCard.rowIndex === rowIndex && activeCard.cardIndex === cardIndex) {
+      setActiveCard(null);
+    } else {
+      // Otherwise set this as the new active card (deselecting any others automatically)
+      setActiveCard({ rowIndex, cardIndex });
+    }
+  };
 
   return (
     <div className="w-full flex flex-col gap-8 py-10 bg-[#010524ff] relative z-10 overflow-hidden">
@@ -84,6 +104,9 @@ const InfiniteSlider = () => {
 
       {/* 1st slider (largest) : Right */}
       <SliderRow 
+        rowIndex={0}
+        activeCard={activeCard}
+        onCardClick={handleCardClick}
         direction="right" 
         size="clamp(220px, 30vw, 280px)" 
         items={items} 
@@ -92,6 +115,9 @@ const InfiniteSlider = () => {
 
       {/* 2nd slider (smaller) : Left */}
       <SliderRow 
+        rowIndex={1}
+        activeCard={activeCard}
+        onCardClick={handleCardClick}
         direction="left" 
         size="clamp(180px, 25vw, 220px)" 
         items={items} 
@@ -100,6 +126,9 @@ const InfiniteSlider = () => {
 
       {/* 3rd slider (smallest) : Right */}
       <SliderRow 
+        rowIndex={2}
+        activeCard={activeCard}
+        onCardClick={handleCardClick}
         direction="right" 
         size="clamp(140px, 20vw, 160px)" 
         items={items} 

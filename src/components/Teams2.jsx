@@ -145,10 +145,33 @@ const Teams2 = () => {
   }, [isPaused]);
 
   useEffect(() => {
-    if (teamRefs.current[currentTeamIndex]) {
-      setContainerHeight(`${teamRefs.current[currentTeamIndex].offsetHeight}px`);
-    }
-  }, [currentTeamIndex]);
+    const updateMaxHeight = () => {
+      const refs = teamRefs.current;
+      if (!refs.length) return;
+      
+      let maxH = 0;
+      refs.forEach((ref) => {
+        if (ref) {
+          maxH = Math.max(maxH, ref.offsetHeight);
+        }
+      });
+      
+      if (maxH > 0) {
+        setContainerHeight(`${maxH}px`);
+      }
+    };
+
+    // Initial calculation
+    // A small timeout ensures the DOM is fully settled (e.g., if images/fonts affect size briefly)
+    const timeoutId = setTimeout(updateMaxHeight, 100);
+
+    window.addEventListener('resize', updateMaxHeight);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', updateMaxHeight);
+    };
+  }, []);
 
   const handleNext = () => {
     setCurrentTeamIndex((prevIndex) => (prevIndex + 1) % TEAMS_DATA.length);
