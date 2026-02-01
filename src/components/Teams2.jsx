@@ -4,8 +4,56 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 
+// Social Icons
+const Icons = {
+  LinkedIn: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+    </svg>
+  ),
+  Instagram: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+  ),
+  Twitter: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  )
+};
+
 const TEAMS_DATA = [
-  { name: 'Operations Team', count: 5 },
+  { 
+    name: 'Operations Team', 
+    members: [
+      {
+        name: 'Pavan',
+        role: 'Operations Co-Lead',
+        image: '/assets/Teams/Pavan.jpg',
+        socials: {
+          linkedin: 'https://www.linkedin.com/in/itspavant',
+          instagram: 'https://www.instagram.com/pavanteja443'
+        }
+      },
+      {
+        name: 'Roma',
+        role: 'Operations Co-Lead',
+        image: '/assets/Teams/Roma.JPG',
+        socials: {
+          linkedin: 'www.linkedin.com/in/roma-n12',
+          instagram: 'https://www.instagram.com/_roma.12_/',
+          twitter: 'https://x.com/Romalisha12'
+        }
+      },
+      {
+        name: 'Bhavy',
+        role: 'Operations Core',
+        image: '/assets/Teams/Bhavy.jpg',
+        socials: {}
+      }
+    ]
+  },
   { name: 'Sponsorship Team', count: 3 },
   { name: 'Design Team', count: 5 },
   { name: 'Social Media Team', count: 5 },
@@ -14,11 +62,21 @@ const TEAMS_DATA = [
   { name: 'Tech Team', count: 4 },
 ];
 
-const FlipMemberCard = ({ onHoverStart, onHoverEnd }) => {
+const FlipMemberCard = ({ member, onHoverStart, onHoverEnd }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef(null);
   
-  // Keep ref in sync with state for event listener to avoid stale closure without re-binding effect
+  // Dummy data fallback
+  const data = member || {
+    name: 'Team Member',
+    role: 'Member',
+    image: '/assets/dummy.png',
+    socials: {}
+  };
+
+  const socialLinks = data.socials || {};
+
+  // Keep ref in sync with state
   const isFlippedRef = useRef(isFlipped);
   useEffect(() => {
     isFlippedRef.current = isFlipped;
@@ -27,19 +85,18 @@ const FlipMemberCard = ({ onHoverStart, onHoverEnd }) => {
   // Handle "click outside" to close card on mobile
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (typeof window !== 'undefined' && window.innerWidth < 768) { // Only relevant for mobile logic
+      if (typeof window !== 'undefined' && window.innerWidth < 768) { 
         if (cardRef.current && !cardRef.current.contains(event.target)) {
-          // Only close if it's currently open
           if (isFlippedRef.current) {
             setIsFlipped(false);
-            onHoverEnd?.(); // Resume auto-scroll if we close it
+            onHoverEnd?.(); 
           }
         }
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside); // Better mobile support
+    document.addEventListener('touchstart', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
@@ -90,14 +147,15 @@ const FlipMemberCard = ({ onHoverStart, onHoverEnd }) => {
           className="absolute inset-0 w-full h-full rounded-[35px] bg-[#02093D] border-2 border-[#ff0000] flex flex-col items-center justify-start pt-10 backface-hidden"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <Image 
-            src="/assets/dummy.png" 
-            alt="Team Member" 
-            width={150} 
-            height={150} 
-            className="rounded-full object-cover w-[120px] h-[120px] md:w-[150px] md:h-[150px] mb-6 border-2 border-[#ff0000] shadow-sm"
-          />
-          <div className="font-bold text-lg md:text-xl text-white text-center px-4">Gurucharan Maripala</div>
+          <div className="relative w-[120px] h-[120px] md:w-[150px] md:h-[150px] mb-6 rounded-full overflow-hidden border-1 border-[#ff0000] shadow-sm">
+            <Image 
+                src={data.image} 
+                alt={data.name} 
+                fill
+                className="object-cover"
+            />
+          </div>
+          <div className="font-bold text-lg md:text-xl text-white text-center px-4 font-['PPMori']">{data.name}</div>
         </div>
 
         {/* BACK SIDE */}
@@ -105,21 +163,27 @@ const FlipMemberCard = ({ onHoverStart, onHoverEnd }) => {
           className="absolute inset-0 w-full h-full rounded-[35px] bg-[#02093D] border-2 border-[#ff0000] flex flex-col items-center justify-center backface-hidden"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <div className="text-lg md:text-xl text-white font-bold flex flex-col items-center mb-8">
-            Tech Team Co-Lead
+          <div className="text-lg md:text-xl text-white font-bold flex flex-col items-center mb-8 font-['PPMori']">
+            {data.role}
             <div className="h-[2px] w-[50px] bg-white mt-2"></div>
           </div>
 
-          <div className="flex gap-6">
-            <a href="#" className="text-white transition-colors duration-300 hover:text-[#ff0000] hover:scale-110 transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="#" className="text-white transition-colors duration-300 hover:text-[#ff0000] hover:scale-110 transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-            </a>
-            <a href="#" className="text-white transition-colors duration-300 hover:text-[#ff0000] hover:scale-110 transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-            </a>
+          <div className="flex gap-4">
+             {socialLinks.instagram && (
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-white transition-colors duration-300 hover:text-[#ff0000] hover:scale-110 transform">
+                  <Icons.Instagram />
+                </a>
+             )}
+             {socialLinks.twitter && (
+                 <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-white transition-colors duration-300 hover:text-[#ff0000] hover:scale-110 transform">
+                   <Icons.Twitter />
+                 </a>
+             )}
+             {socialLinks.linkedin && (
+                 <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-white transition-colors duration-300 hover:text-[#ff0000] hover:scale-110 transform">
+                   <Icons.LinkedIn />
+                 </a>
+             )}
           </div>
         </div>
       </motion.div>
@@ -139,7 +203,7 @@ const Teams2 = () => {
     if (!isPaused) {
       interval = setInterval(() => {
         setCurrentTeamIndex((prevIndex) => (prevIndex + 1) % TEAMS_DATA.length);
-      }, 3000); // 3 seconds delay as requested
+      }, 3000); // 3 seconds delay
     }
     return () => clearInterval(interval);
   }, [isPaused]);
@@ -161,8 +225,6 @@ const Teams2 = () => {
       }
     };
 
-    // Initial calculation
-    // A small timeout ensures the DOM is fully settled (e.g., if images/fonts affect size briefly)
     const timeoutId = setTimeout(updateMaxHeight, 100);
 
     window.addEventListener('resize', updateMaxHeight);
@@ -183,9 +245,13 @@ const Teams2 = () => {
 
   return (
     <section className="w-full relative z-10 flex flex-col items-center justify-center bg-[#010524ff] py-20 min-h-screen">
-      <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-8 z-30 relative font-['PPMori'] tracking-tight pt-4 w-full">
-        Teams
-      </h2>
+      <div className="max-w-[90vw] xl:max-w-7xl mx-auto px-6 relative z-10 w-full mb-16 pt-4">
+        <h2 className="text-3xl md:text-5xl text-[#f17575ff] font-bold text-center font-['PPMori'] tracking-tight">
+            <span className="relative inline-block after:content-[''] after:absolute after:bottom-[-3] after:left-0 after:w-0 after:h-[2px] after:bg-[#f17575ff] after:transition-all after:duration-300 hover:after:w-full">
+                Teams
+            </span>
+        </h2>
+      </div>
 
       {/* Navigation & Header */}
       <div className="flex items-center justify-center gap-4 md:gap-8 mb-8 z-30 relative w-full px-4">
@@ -224,13 +290,27 @@ const Teams2 = () => {
               className="w-full shrink-0 flex flex-col items-center"
             >
               <div className="flex flex-wrap justify-center gap-6 w-full px-4 items-start">
-                {Array.from({ length: team.count }).map((_, i) => (
-                  <FlipMemberCard 
-                    key={i} 
-                    onHoverStart={() => setIsPaused(true)}
-                    onHoverEnd={() => setIsPaused(false)}
-                  />
-                ))}
+                
+                {team.members ? (
+                    team.members.map((member, i) => (
+                        <FlipMemberCard 
+                            key={i} 
+                            member={member}
+                            onHoverStart={() => setIsPaused(true)}
+                            onHoverEnd={() => setIsPaused(false)}
+                        />
+                    ))
+                ) : (
+                    Array.from({ length: team.count }).map((_, i) => (
+                        <FlipMemberCard 
+                            key={i} 
+                            // No member prop passed, uses dummy fallback
+                            onHoverStart={() => setIsPaused(true)}
+                            onHoverEnd={() => setIsPaused(false)}
+                        />
+                    ))
+                )}
+
               </div>
             </div>
           ))}
