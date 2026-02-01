@@ -5,10 +5,11 @@ import AboutUs from '../components/AboutUs';
 // import Tracks2 from '../components/Tracks2';
 import ContactUs from '../components/ContactUs';
 import Prizes from '../components/Prizes';
+import InfiniteSlider from '@/components/ui/InfiniteSlider';
 import Sponsors from '@/components/Sponsors';
 import Faqs from '@/components/Faqs';
 import Teams from '@/components/Teams';
-// import Teams2 from '@/components/Teams2';
+import Teams2 from '@/components/Teams2';
 import { FlipCard } from '@/components/animate-ui/components/community/flip-card';
 import Tracks3 from '../components/Tracks3';
 
@@ -36,6 +37,7 @@ const Home = () => {
       </div>
       <section id="about">
         <AboutUs />
+        <InfiniteSlider />
       </section>
       <section id="tracks">
         <Tracks3 />
@@ -58,7 +60,7 @@ const Home = () => {
       </section>
       {/* <Teams /> */}
       <section id="teams">
-        {/* <Teams2/> */}
+        <Teams2/>
       </section>
       {/* Container to center the card so it doesn't stretch full width */}
       {/* <div className="flex justify-center py-20">

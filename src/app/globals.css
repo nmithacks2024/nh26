@@ -136,3 +136,22 @@ html {
   /* Removed scroll-behavior: smooth to prevent jumping to top on refresh. */
   scroll-padding-top: 100px;
 }
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-33.33%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
