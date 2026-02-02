@@ -144,7 +144,7 @@ const Prizes = () => {
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-gray-300 text-gray-800 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
-              ₹ 15,000
+              ₹ 30,000
             </div>
 
             {/* Moving Container for Coin */}
@@ -163,7 +163,7 @@ const Prizes = () => {
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-yellow-400 text-yellow-900 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
-              ₹ 25,000
+              ₹ 50,000
             </div>
 
             <div ref={coin1} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">
@@ -181,7 +181,7 @@ const Prizes = () => {
           >
             {/* Prize Slot */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] py-1 rounded-md bg-orange-300 text-orange-900 font-bold font-['PPMori'] text-sm md:text-xl flex justify-center items-center z-0 whitespace-nowrap">
-              ₹ 10,000
+              ₹ 20,000
             </div>
 
             <div ref={coin3} onMouseEnter={handleHover} className="relative z-20 w-24 h-24 flex items-center justify-center rounded-full">

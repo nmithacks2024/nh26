@@ -45,7 +45,7 @@ const Hero = () => {
               National-Level 48-Hours Hackathon
             </p>
             <p className="text-lg md:text-2xl lg:text-3xl xl:text-2xl font-bold text-[#f17575ff] tracking-widest uppercase">
-              16th - 18th May, 2025
+              8th - 10th May, 2025
             </p>
           </div>
 
