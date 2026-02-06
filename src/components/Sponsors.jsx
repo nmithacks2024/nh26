@@ -81,6 +81,7 @@ const ParticleCard = ({
   enableTilt = true,
   clickEffect = false,
   enableMagnetism = false,
+  forceHover = false,
   href
 }) => {
   const cardRef = useRef(null);
@@ -121,7 +122,7 @@ const ParticleCard = ({
   }, []);
 
   const animateParticles = useCallback(() => {
-    if (!cardRef.current || !isHoveredRef.current) return;
+    if (!cardRef.current || (!isHoveredRef.current && !forceHover)) return;
 
     if (!particlesInitialized.current) {
       initializeParticles();
@@ -129,7 +130,7 @@ const ParticleCard = ({
 
     memoizedParticles.current.forEach((particle, index) => {
       const timeoutId = setTimeout(() => {
-        if (!isHoveredRef.current || !cardRef.current) return;
+        if ((!isHoveredRef.current && !forceHover) || !cardRef.current) return;
 
         // Ensure we clone and append correctly
         const clone = particle.cloneNode(true);
@@ -163,12 +164,17 @@ const ParticleCard = ({
 
       timeoutsRef.current.push(timeoutId);
     });
-  }, [initializeParticles]);
+  }, [initializeParticles, forceHover, glowColor]);
 
   useEffect(() => {
     if (disableAnimations || !cardRef.current) return;
 
     const element = cardRef.current;
+
+    // Trigger animations immediately if forceHover is true
+    if (forceHover) {
+      animateParticles();
+    }
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
@@ -187,7 +193,9 @@ const ParticleCard = ({
 
     const handleMouseLeave = () => {
       isHoveredRef.current = false;
-      clearAllParticles();
+      if (!forceHover) {
+        clearAllParticles();
+      }
 
       if (enableTilt) {
         gsap.to(element, {
@@ -299,9 +307,11 @@ const ParticleCard = ({
       element.removeEventListener('mouseleave', handleMouseLeave);
       element.removeEventListener('mousemove', handleMouseMove);
       element.removeEventListener('click', handleClick);
+      // We don't indiscriminately clear particles here because if components re-render but we want persistence it might be tricky,
+      // but usually unmount means we should clear.
       clearAllParticles();
     };
-  }, [animateParticles, clearAllParticles, disableAnimations, enableTilt, enableMagnetism, clickEffect, glowColor]);
+  }, [animateParticles, clearAllParticles, disableAnimations, enableTilt, enableMagnetism, clickEffect, glowColor, forceHover]);
 
   const Component = href ? 'a' : 'div';
 
@@ -491,7 +501,10 @@ const Sponsors = ({
 }) => {
   const gridRef = useRef(null);
   const isMobile = useMobileDetection();
-  const shouldDisableAnimations = disableAnimations || isMobile;
+  
+  // We want animations to run on mobile for the persistent effect, 
+  // so we only disable if explicitly requested via props
+  const shouldDisableAnimations = disableAnimations;
 
   return (
     <section className="w-full py-20 bg-[#010524ff] relative">
@@ -511,16 +524,15 @@ const Sponsors = ({
             --purple-border: rgba(0, 0, 0, 0.8);
           }
 
-          /* Default state: red border */
+          /* Default card style with tier-colored border */
           .card {
-            border-color: #ff0000 !important;
+            border-color: rgba(var(--tier-glow), 0.7) !important;
           }
 
-          /* Hover state: remove red border */
+          /* Hover state */
           .card:hover {
-            border-color: #808080 !important;
+            border-color: rgba(var(--tier-glow), 1) !important;
           }
-
           
           .card-responsive {
             display: flex;
@@ -542,8 +554,8 @@ const Sponsors = ({
           
           .card {
              width: 100%;
-             max-width: 200px; /* Reduced from 280px for standard mobile */
-             height: 200px; /* Reduced from 250px */
+             max-width: 200px; 
+             height: 200px; 
              flex-shrink: 0;
           }
 
@@ -556,12 +568,18 @@ const Sponsors = ({
 
           @media (min-width: 768px) {
              .card {
-                 width: 220px; /* Reduced from 300px to 220px for "not huge" look */
+                 width: 220px; 
                  height: 220px;
+                 border-color: #808080 !important;
+                 border-width: 2px !important;
              }
+             .card:hover {
+                 border-color: rgba(var(--tier-glow), 1) !important;
+             }
+
              .tier-row {
-                 width: 100%; /* Allow full width for side-by-side */
-                 max-width: 1200px; /* grid-like constraint but large enough for side-by-side */
+                 width: 100%; 
+                 max-width: 1200px; 
                  margin: 0 auto;
                  display: flex;
                  flex-wrap: wrap;
@@ -575,6 +593,23 @@ const Sponsors = ({
                 flex-direction: column;
                 align-items: center;
                 gap: 1.5rem;
+             }
+             
+             /* Remove inner border glow on mobile */
+             .card--border-glow::after {
+                opacity: 0 !important;
+                display: none !important;
+             }
+             
+             /* Thicker, solid border on mobile */
+             .card {
+                border-width: 3px !important;
+                border-color: rgba(var(--tier-glow), 1) !important;
+             }
+
+             /* Persistent shadow on mobile */
+             .card--border-glow {
+                 box-shadow: 0 4px 20px rgba(46, 24, 78, 0.4), 0 0 30px rgba(var(--tier-glow), 0.4);
              }
           }
           
@@ -687,11 +722,11 @@ const Sponsors = ({
 
                   const cardStyle = {
                     backgroundColor: 'var(--background-dark)', // Keep dark background for contrast
-                    borderColor: 'var(--border-color)',
+                    borderColor: 'var(--border-color)', // Fallback, but CSS !important overrides this mostly
                     color: 'var(--white)',
                     '--glow-x': '50%',
                     '--glow-y': '50%',
-                    '--glow-intensity': '0',
+                    '--glow-intensity': isMobile ? '0.8' : '0', // Force glow intensity on mobile
                     '--glow-radius': '200px',
                     '--tier-glow': tierColor // Dynamic CSS variable for this card
                   };
@@ -705,9 +740,10 @@ const Sponsors = ({
                         disableAnimations={shouldDisableAnimations}
                         particleCount={particleCount}
                         glowColor={tierColor}
-                        enableTilt={enableTilt}
+                        enableTilt={!isMobile && enableTilt} // Disable tilt on mobile
                         clickEffect={clickEffect}
                         enableMagnetism={enableMagnetism}
+                        forceHover={isMobile} // Force hover particles on mobile
                         href={item.link}
                       >
                         <div className="card__content flex flex-col items-center justify-center relative text-white h-full z-10 p-4 text-center w-full">
@@ -735,10 +771,6 @@ const Sponsors = ({
                       key={`${tier}-${index}`}
                       className={baseClassName}
                       style={cardStyle}
-                    // ... (Ref logic would go here if not using ParticleCard, but assuming enableStars is mostly true)
-                    // For simplicity in this renovation, defaulting to just the struct since enableStars is widely used
-                    // If enableStars is false, we'd need the ref logic. 
-                    // I'll leave the ParticleCard branch as the main logic for now as per "fully utilises Sponsors.jsx components"
                     >
                       <div className="card__content flex flex-col items-center justify-center relative text-white h-full z-10 p-4 text-center w-full">
                         {item.image ? (
@@ -767,4 +799,3 @@ const Sponsors = ({
 };
 
 export default Sponsors;
-

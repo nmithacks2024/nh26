@@ -37,6 +37,11 @@ const Brochure = () => {
                     </span>
                 </h2>
             </div>
+            
+            <h3 className="text-lg md:text-3xl font-bold text-white font-['PPMori'] mb-3 md:mb-4 leading-tight text-center">
+                Looking to Sponsor <br/>
+                <span className="text-[#f17575ff]">NMIT HACKS 2026?</span>
+            </h3>
 
             {/* Dragon Scroll Container */}
             <div className="relative flex flex-col items-center justify-center pointer-events-none"> 
@@ -78,10 +83,7 @@ const Brochure = () => {
                         
                         <div className="w-10 md:w-16 h-1 bg-[#ff0000] mb-4 md:mb-6"></div>
 
-                        <h3 className="text-lg md:text-3xl font-bold text-white font-['PPMori'] mb-3 md:mb-4 leading-tight">
-                            Looking to Sponsor <br/>
-                            <span className="text-[#f17575ff]">NMIT HACKS 2026?</span>
-                        </h3>
+
                         
                         <p className="text-gray-300 mb-6 md:mb-8 max-w-sm text-xs md:text-base font-['PPMori'] leading-relaxed">
                             Join us in empowering the next generation of innovators. Download our brochure to see how you can get involved.

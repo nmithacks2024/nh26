@@ -41,7 +41,7 @@ const Hero = () => {
 
           {/* Details */}
           <div className="space-y-2 md:space-y-4 xl:space-y-3 pt-4 md:pt-2 xl:pt-6 animate-fade-in-up delay-100">
-            <p className="text-xl md:text-3xl lg:text-4xl xl:text-3xl text-[#ff0000] font-bold tracking-wide font-['PPMori'] px-2 mb-4 md:mb-6 mt-2 md:mt-4">
+            <p className="text-xl md:text-3xl   lg:text-4xl xl:text-3xl text-[#ff0000] font-bold tracking-wide font-['PPMori'] px-2 mb-4 md:mb-6 mt-2 md:mt-4">
               National-Level 48-Hours Hackathon
             </p>
             <p className="text-lg md:text-2xl lg:text-3xl xl:text-2xl font-bold text-[#f17575ff] tracking-widest uppercase">
