@@ -5,6 +5,21 @@ import { CldImage } from 'next-cloudinary';
 import React from 'react';
 import Navbar from './Navbar';
 
+// import { useEffect } from "react";
+
+// useEffect(() => {
+//   const script = document.createElement("script");
+//   script.src = "https://apply.devfolio.co/v2/sdk.js";
+//   script.async = true;
+//   script.defer = true;
+//   document.body.appendChild(script);
+
+//   return () => {
+//     document.body.removeChild(script);
+//   };
+// }, []);
+
+
 const Hero = () => {
   return (
     <div className="min-h-screen w-full text-white flex flex-col items-center justify-center relative p-4 md:p-8 overflow-hidden">
@@ -61,11 +76,18 @@ const Hero = () => {
             <p className="text-[#f17575ff] text-xs md:text-xl xl:text-xl font-bold mb-2 tracking-wide font-['PPMori']">
               Register here
             </p>
-            <div className="">
+
+            {/* <div className="">
               <button className="w-40 md:w-48 h-10 md:h-11 rounded-[10px] transition-all duration-300 hover:bg-white cursor-pointer flex items-center justify-center text-white overflow-hidden p-0">
                 <img src="/assets/_Colored.png" alt="DEVFOLIO LOGO" className="w-full h-full object-cover" />
               </button>
-            </div>
+            </div> */}
+            <div
+              className="apply-button"
+              data-hackathon-slug="nmithacks2026"
+              data-button-theme="dark-inverted"
+              style={{ height: "44px", width: "312px" }}
+            ></div>
           </div>
         </div>
       </div>

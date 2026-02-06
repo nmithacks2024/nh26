@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollFix from "@/components/ScrollFix";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,10 @@ export default function RootLayout({ children }) {
       >
         <ScrollFix />
         {children}
+        <Script
+          src="https://apply.devfolio.co/v2/sdk.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
