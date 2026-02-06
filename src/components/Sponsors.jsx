@@ -15,7 +15,10 @@ const sponsorsData = {
     { title: 'YellowHillsAI', image: '/assets/yellowhillsai.png', link: 'https://yellowhills.ai/' },
     { title: 'Coming Soon!' }
   ],
-  gold: Array(2).fill({ title: 'Coming Soon!' }),
+  gold: [
+    { title: 'Devfolio', image: '/assets/Devfolio.png', link: 'https://devfolio.co/', alt: 'DEVFOLIO LOGO' },
+    { title: 'Coming Soon!' }
+  ],
   silver: Array(4).fill({ title: 'Coming Soon!' })
 };
 
@@ -501,7 +504,7 @@ const Sponsors = ({
 }) => {
   const gridRef = useRef(null);
   const isMobile = useMobileDetection();
-  
+
   // We want animations to run on mobile for the persistent effect, 
   // so we only disable if explicitly requested via props
   const shouldDisableAnimations = disableAnimations;
@@ -751,7 +754,7 @@ const Sponsors = ({
                             <div className="relative w-full h-full flex items-center justify-center p-4">
                               <Image
                                 src={item.image}
-                                alt={item.title}
+                                alt={item.alt || item.title}
                                 fill
                                 className="object-contain p-4"
                               />
@@ -777,7 +780,7 @@ const Sponsors = ({
                           <div className="relative w-full h-full flex items-center justify-center p-4">
                             <Image
                               src={item.image}
-                              alt={item.title}
+                              alt={item.alt || item.title}
                               fill
                               className="object-contain p-4"
                             />
