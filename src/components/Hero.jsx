@@ -62,7 +62,7 @@ const Hero = () => {
               Register here
             </p>
             <div className="">
-              <button className="w-40 md:w-48 h-10 md:h-11 border-2 rounded-[10px] border-[2px] border-[#ff0000] transition-all duration-300 hover:bg-white cursor-pointer flex items-center justify-center text-white overflow-hidden p-0">
+              <button className="w-40 md:w-48 h-10 md:h-11 rounded-[10px] transition-all duration-300 hover:bg-white cursor-pointer flex items-center justify-center text-white overflow-hidden p-0">
                 <img src="/assets/_Colored.png" alt="DEVFOLIO LOGO" className="w-full h-full object-cover" />
               </button>
             </div>
