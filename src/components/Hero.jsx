@@ -9,9 +9,9 @@ const Hero = () => {
   return (
     <div className="min-h-screen w-full text-white flex flex-col items-center justify-center relative p-4 md:p-8 overflow-hidden">
       <div className="absolute inset-0 w-full h-full z-0">
-        <img 
-          src="/assets/bg-3.jpeg" 
-          alt="Hero Background" 
+        <img
+          src="/assets/bg-3.jpeg"
+          alt="Hero Background"
           className="w-full h-full object-cover opacity-90"
         />
         {/* Overlay for better text readability if needed */}
@@ -19,14 +19,14 @@ const Hero = () => {
       </div>
       {/* Outer Glow/Border Effect (Optional, staying strict B&W so just a border) */}
       <div className="w-[90vw] md:w-[80vw] lg:max-w-5xl xl:w-full xl:max-w-[95vw] min-h-[60vh] md:min-h-[80vh] xl:min-h-[85vh] rounded-[3rem] xl:rounded-3xl flex flex-col items-center relative overflow-visible mt-8 md:mt-0 transition-all duration-300">
-        
+
         {/* Navbar positioned to overlap top border */}
         {/* Navbar moved to page.js */}
-        
-       
+
+
 
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 xl:space-y-6 z-10 p-4 pt-24 md:pt-24 xl:pt-32 pb-12 xl:pb-10 w-full h-full justify-center my-auto xl:my-0 xl:justify-start">
-          
+
           {/* Logo */}
           <div className="mb-2 md:mb-4 xl:mb-4 animate-fade-in-up">
             <CldImage
@@ -57,10 +57,15 @@ const Hero = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="pt-6 md:pt-10 xl:pt-10 animate-fade-in-up delay-300">
-            <button className="px-8 md:px-12 xl:px-12 py-2 md:py-3 xl:py-3 border-2 rounded-full border-[2px] border-[#ff0000] text-white font-bold transition-all duration-300 hover:bg-white hover:text-[#ff0000] uppercase tracking-widest text-xs md:text-base xl:text-sm font-bold cursor-pointer ">
-              Register
-            </button>
+          <div className="pt-4 md:pt-0 xl:pt-0 animate-fade-in-up delay-300 flex flex-col items-center">
+            <p className="text-[#f17575ff] text-xs md:text-xl xl:text-xl font-bold mb-2 tracking-wide font-['PPMori']">
+              Register here
+            </p>
+            <div className="">
+              <button className="w-40 md:w-48 h-10 md:h-11 border-2 rounded-[10px] border-[2px] border-[#ff0000] transition-all duration-300 hover:bg-white cursor-pointer flex items-center justify-center text-white overflow-hidden p-0">
+                <img src="/assets/_Colored.png" alt="DEVFOLIO LOGO" className="w-full h-full object-cover" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
