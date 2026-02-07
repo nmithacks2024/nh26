@@ -15,29 +15,33 @@ const sponsorsData = {
     { title: 'YellowHillsAI', image: '/assets/yellowhillsai.png', link: 'https://yellowhills.ai/' },
     { title: 'Coming Soon!' }
   ],
-  gold: [
+  gold: Array(2).fill({ title: 'Coming Soon!' }),
+  silver: Array(4).fill({ title: 'Coming Soon!' }),
+  community: [
     { title: 'Devfolio', image: '/assets/Devfolio.png', link: 'https://devfolio.co/', alt: 'DEVFOLIO LOGO' },
     { title: 'Coming Soon!' }
-  ],
-  silver: Array(4).fill({ title: 'Coming Soon!' })
+  ]
 };
 
 const tierColors = {
   platinum: '229, 228, 226', // #E5E4E2
   gold: '255, 215, 0',       // #FFD700
-  silver: '192, 192, 192'    // #C0C0C0
+  silver: '192, 192, 192',    // #C0C0C0
+  community: '255, 0, 0'   // #ff0000 (red)
 };
 
 const tierHexColors = {
   platinum: '#b5b5b5',
   gold: '#b5b5b5',
-  silver: '#b5b5b5'
+  silver: '#b5b5b5',
+  community: '#b5b5b5'
 };
 
 const tierShineColors = {
   platinum: '#ffffffff',
   gold: '#FFD700',
-  silver: '#dededeff'
+  silver: '#dededeff',
+  community: '#f17575ff'
 };
 
 const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
@@ -706,10 +710,10 @@ const Sponsors = ({
         </h2>
 
         <div className="card-responsive flex flex-col items-center">
-          {['platinum', 'gold', 'silver'].map((tier) => (
+          {['platinum', 'gold', 'silver', 'community'].map((tier) => (
             <div key={tier} className="w-full flex flex-col items-center gap-8 mb-8">
               <ShinyText
-                text={tier.charAt(0).toUpperCase() + tier.slice(1)}
+                text={tier === 'community' ? 'Community Partners' : tier.charAt(0).toUpperCase() + tier.slice(1)}
                 disabled={false}
                 speed={3}
                 className="text-2xl md:text-2xl font-bold uppercase tracking-widest font-['PPMori'] opacity-90"
