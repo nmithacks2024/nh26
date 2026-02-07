@@ -805,21 +805,4 @@ const Sponsors = ({
   );
 };
 
-{/* Devfolio Verification Block – DO NOT ANIMATE */}
-<section
-  id="devfolio-sponsor"
-  style={{ textAlign: "center", padding: "24px 0" }}
->
-  <h2>Sponsors</h2>
-
-  <a href="https://devfolio.co" target="_blank" rel="noopener noreferrer">
-    <img
-      src="/assets/Devfolio.png"
-      alt="Devfolio"
-      style={{ height: "48px", margin: "0 auto" }}
-    />
-  </a>
-</section>
-
-
 export default Sponsors;
