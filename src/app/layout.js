@@ -29,12 +29,12 @@ export default function RootLayout({ children }) {
       >
         <ScrollFix />
         {children}
-        
+
         {/* Devfolio Verification – STATIC (DO NOT MOVE / ANIMATE) */}
         <section style={{ textAlign: "center", padding: "24px 0" }}>
           <h2>Sponsors</h2>
           <a href="https://devfolio.co">
-            <img src="/assets/Devfolio.png" alt="Devfolio" height="48" />
+            <img src="/assets/Devfolio.png" alt="DEVFOLIO LOGO" height="48" />
           </a>
         </section>
 
