@@ -36,6 +36,12 @@ const Home = () => {
       <div className="-mt-[60px] w-full relative z-0">
         <Hero />
       </div>
+      <section style={{ textAlign: "center", padding: "24px 0" }}>
+        <h2>Sponsors</h2>
+        <a href="https://devfolio.co">
+          <img src="/assets/Devfolio.png" alt="DEVFOLIO LOGO" height="48" />
+        </a>
+      </section>
       <section id="about">
         <AboutUs />
         <InfiniteSlider />
