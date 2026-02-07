@@ -38,7 +38,7 @@ const Hero = () => {
         {/* Navbar positioned to overlap top border */}
         {/* Navbar moved to page.js */}
 
-
+      
 
         <div className="flex flex-col items-center text-center space-y-4 md:space-y-6 xl:space-y-6 z-10 p-4 pt-24 md:pt-24 xl:pt-32 pb-12 xl:pb-10 w-full h-full justify-center my-auto xl:my-0 xl:justify-start">
 

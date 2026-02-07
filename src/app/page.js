@@ -36,6 +36,31 @@ const Home = () => {
       <div className="-mt-[60px] w-full relative z-0">
         <Hero />
       </div>
+      {/* ✅ DEVFOLIO SPONSOR LOGO (ADD HERE) */}
+      <section
+        id="devfolio-sponsor"
+        style={{
+          textAlign: "center",
+          padding: "40px 0",
+          background: "black",
+        }}
+      >
+        <h2 style={{ color: "white", marginBottom: "16px" }}>
+          Sponsors
+        </h2>
+
+        <a
+          href="https://devfolio.co"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="/assets/Devfolio.png"
+            alt="Devfolio"
+            height="48"
+          />
+        </a>
+      </section>
       <section id="about">
         <AboutUs />
         <InfiniteSlider />
