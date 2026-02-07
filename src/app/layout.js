@@ -29,9 +29,6 @@ export default function RootLayout({ children }) {
       >
         <ScrollFix />
         {children}
-
-
-
         <Script
           src="https://apply.devfolio.co/v2/sdk.js"
           strategy="afterInteractive"
