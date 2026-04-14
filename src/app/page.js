@@ -16,6 +16,8 @@ import Tracks3 from '../components/Tracks3';
 import Brochure from '@/components/Brochure';
 import Teams3 from '@/components/Teams3';
 import AboutUs2 from '../components/AboutUs2'
+import Tracks4 from '@/components/Tracks4';
+
 // --- ADD THIS DATA OBJECT ---
 const data = {
   name: 'Animate UI',
@@ -43,7 +45,7 @@ const Home = () => {
         <InfiniteSlider />
       </section>
       <section id="tracks">
-        <Tracks3 />
+        <Tracks4 />
       </section>
       <section id="prizes">
         <Prizes />
